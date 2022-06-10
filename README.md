@@ -17,16 +17,16 @@ git clone https://github.com/tallesemmanuel/conversao-temperatura.git
 Download do projeto.
 
 ```bash
-git clone https://github.com/tallesemmanuel/kubernetes-conversao-temperatura.git
+git clone https://github.com/mvcardim/kubernetes-conversao-temp.git
 ```
 
 - Iniciar um cluster.
 
-No meu caso, estou subindo um cluster com 3 agents e 3 servers, analise se para você da certo o total de nós.
+No meu caso, estou subindo um cluster com 2 agents e 2 servers, analise se para você da certo o total de nós.
 Também neste comando, estou especificando a porta da aplicação "8080", mapeando localmente uma porta "30000" para o loadbalancer, caso tenha muitos pods e seja escalável.
 
 ```bash
-k3d cluster create cluster-temperatura --agents 3 --servers 3 -p "8080:30000@loadbalancer"
+k3d cluster create cluster-temperatura --agents 2 --servers 2 -p "8080:30000@loadbalancer"
 ```
 
 - Para realizar o deployment da aplicação, se da necessário rodar apenas um comando.
@@ -44,17 +44,4 @@ kubectl get all
 
 Saída do comando.
 
-```bash
-NAME                                         READY   STATUS    RESTARTS   AGE
-pod/conversao-temperatura-54bb868989-wqk86   1/1     Running   0          8m17s
 
-NAME                            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
-service/conversao-temperatura   NodePort    10.43.42.227   <none>        80:30000/TCP   8m17s
-service/kubernetes              ClusterIP   10.43.0.1      <none>        443/TCP        9m25s
-
-NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/conversao-temperatura   1/1     1            1           8m17s
-
-NAME                                               DESIRED   CURRENT   READY   AGE
-replicaset.apps/conversao-temperatura-54bb868989   1         1         1       8m17s
-```
